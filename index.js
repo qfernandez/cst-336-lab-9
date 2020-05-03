@@ -26,7 +26,7 @@ app.get('/', function(req, res){
 app.get('/author', function(req, res){
     var stmt = 'select * from l9_author where firstName=\'' 
                 + req.query.firstname + '\' and lastName=\'' 
-                + req.query.lastname + '\';'
+                + req.query.lastname + '\';';
 	pool.query(stmt, function(error, found){
 	    var author = null;
 	    if(error) throw error;
@@ -46,7 +46,7 @@ app.get('/author/:aid', function(req, res){
                'from l9_quotes, l9_author ' +
                'where l9_quotes.authorId=l9_author.authorId ' + 
                'and l9_quotes.authorId=' + req.params.aid + ';'
-    pool.query(stmt, function(error, results){
+    connection.query(stmt, function(error, results){
         if(error) throw error;
         var name = results[0].firstName + ' ' + results[0].lastName;
         res.render('quotes', {name: name, quotes: results});      
